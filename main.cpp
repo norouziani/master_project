@@ -38,29 +38,22 @@
 **
 ****************************************************************************/
 
-#ifndef RECEIVER_H
-#define RECEIVER_H
+#include "sender.h"
+#include "receiver.h"
+#include <iostream>
+#include <QApplication>
+#include<QDebug>
+using namespace std;
 
-
-
-
-class Receiver : public QObject
+int main()
 {
+    Receiver receiver;
+    while((receiver.processPendingDatagrams())!=1919)
+    {        
+        receiver.processPendingDatagrams();
+    }
+    Sender sender;
+    sender.senddata(receiver.average1());
 
+}
 
-    float submark,average,subm=0,subu=0,o;
-    int sub=0;
-
-public:
-    Receiver(QObject *parent = 0);
-    QByteArray average1();
-public slots:
-    float processPendingDatagrams();
-
-
-private:
-
-    QUdpSocket *udpSocket;
-};
-
-#endif
